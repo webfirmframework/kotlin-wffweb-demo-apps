@@ -32,12 +32,10 @@ class SampleTemplate2(private val documentModel: DocumentModel) : Div(null), Ser
         val classAttribute10 = ClassAttribute("form-group")
         val classAttribute13 = ClassAttribute("form-control")
 
-        object : H2(this) {
-            init {
-                NoTag(this, "Vertical (basic) form")
-            }
+        H2(this).run {
+            NoTag(this, "Vertical (basic) form")
         }
-        object : Form(this,
+        Form(this,
                 OnSubmit("event.preventDefault(); return true;",
                         { bm, ev ->
 
@@ -52,63 +50,49 @@ class SampleTemplate2(private val documentModel: DocumentModel) : Div(null), Ser
                                     "message from server")
 
                             result;
-                        }, "return {email: email.value, pwd: pwd.value}", "if (jsObject && jsObject.msg) {alert(jsObject.msg);}")) {
-            init {
-                object : Div(this,
-                        classAttribute10) {
-                    init {
-                        object : Label(this,
-                                For("email")) {
-                            init {
-                                NoTag(this, "Email:")
-                            }
-                        }
-                        Input(this,
-                                Type(Type.EMAIL),
-                                classAttribute13,
-                                Id("email"),
-                                Placeholder("Enter email"),
-                                Name("email"),
-                                AutoComplete(AutoComplete.EMAIL))
-                    }
+                        }, "return {email: email.value, pwd: pwd.value}",
+                        "if (jsObject && jsObject.msg) {alert(jsObject.msg);}")).run {
+
+            Div(this,
+                    classAttribute10).run {
+                Label(this,
+                        For("email")).run {
+                    NoTag(this, "Email:")
                 }
-                object : Div(this,
-                        classAttribute10) {
-                    init {
-                        object : Label(this,
-                                For("pwd")) {
-                            init {
-                                NoTag(this, "Password:")
-                            }
-                        }
-                        Input(this,
-                                Type(Type.PASSWORD),
-                                classAttribute13,
-                                Id("pwd"),
-                                Placeholder("Enter password"),
-                                Name("pwd"))
-                    }
+                Input(this,
+                        Type(Type.EMAIL),
+                        classAttribute13,
+                        Id("email"),
+                        Placeholder("Enter email"),
+                        Name("email"),
+                        AutoComplete(AutoComplete.EMAIL))
+            }
+            Div(this,
+                    classAttribute10).run {
+                Label(this,
+                        For("pwd")).run {
+                    NoTag(this, "Password:")
                 }
-                object : Div(this,
-                        ClassAttribute("checkbox")) {
-                    init {
-                        object : Label(this) {
-                            init {
-                                Input(this,
-                                        Type("checkbox"),
-                                        Name("remember"))
-                                NoTag(this, " Remember me")
-                            }
-                        }
-                    }
+                Input(this,
+                        Type(Type.PASSWORD),
+                        classAttribute13,
+                        Id("pwd"),
+                        Placeholder("Enter password"),
+                        Name("pwd"))
+            }
+            Div(this,
+                    ClassAttribute("checkbox")).run {
+                Label(this).run {
+                    Input(this,
+                            Type("checkbox"),
+                            Name("remember"))
+                    NoTag(this, " Remember me")
                 }
-                object : Button(this,
-                        Type("submit"),
-                        ClassAttribute("btn btn-default")) {
-                    init {
-                        NoTag(this, "Submit")
-                    }
-                }
+            }
+            Button(this,
+                    Type("submit"),
+                    ClassAttribute("btn btn-default")).run {
+                NoTag(this, "Submit")
             }
         }
     }

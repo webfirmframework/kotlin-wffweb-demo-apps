@@ -22,10 +22,8 @@ class SampleTemplate1(private val documentModel: DocumentModel) : Div(null), Ser
 
         Br(this)
 
-        object : Button(this, OnClick(this@SampleTemplate1)) {
-            init {
-                NoTag(this, "Click Me to change to SampleTemplate2")
-            }
+        Button(this, OnClick(this@SampleTemplate1)).run {
+            NoTag(this, "Click Me to change to SampleTemplate2")
         }
         Br(this)
         Br(this)
@@ -44,6 +42,8 @@ class SampleTemplate1(private val documentModel: DocumentModel) : Div(null), Ser
 
         this.insertBefore(SampleTemplate2(documentModel))
         this.parent.removeChild(this)
+
+
 
         return null
     }

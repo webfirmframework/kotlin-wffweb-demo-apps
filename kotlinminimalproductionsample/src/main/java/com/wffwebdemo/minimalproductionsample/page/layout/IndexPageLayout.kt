@@ -18,6 +18,7 @@ import com.webfirmframework.wffweb.tag.html.stylesandsemantics.Div
 import com.webfirmframework.wffweb.tag.htmlwff.NoTag
 import com.webfirmframework.wffweb.wffbm.data.WffBMObject
 import com.wffwebdemo.minimalproductionsample.page.model.DocumentModel
+import com.wffwebdemo.minimalproductionsample.page.template.ComponentUtil
 import com.wffwebdemo.minimalproductionsample.page.template.SampleTemplate1
 import java.util.logging.Logger
 
@@ -30,44 +31,36 @@ class IndexPageLayout(private val documentModel: DocumentModel) : Html(null), Se
 
     private fun develop() {
 
-        object : Head(this) {
-            init {
-                object : TitleTag(this) {
-                    init {
-                        NoTag(this, "Bootstrap Example")
-                    }
-                }
-                Meta(this,
-                        Charset("utf-8"))
-                Meta(this,
-                        Name("viewport"),
-                        Content("width=device-width, initial-scale=1"))
-                Link(this,
-                        Rel("stylesheet"),
-                        Href("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"))
-                Script(this,
-                        Src("https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"))
-                Script(this,
-                        Src("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"))
+        Head(this).run {
+            TitleTag(this).run {
+                NoTag(this, "Bootstrap Example")
             }
+            Meta(this,
+                    Charset("utf-8"))
+            Meta(this,
+                    Name("viewport"),
+                    Content("width=device-width, initial-scale=1"))
+            Link(this,
+                    Rel("stylesheet"),
+                    Href("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"))
+            Script(this,
+                    Src("https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"))
+            Script(this,
+                    Src("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"))
         }
 
-        object : Body(this) {
-            init {
+        Body(this).run {
 
-                object : Div(this, Id("mainDivId")) {
-                    init {
-                        NoTag(this, "The content of the document...... ")
-                        object : Button(this, OnClick(this@IndexPageLayout)) {
-                            init {
-                                NoTag(this, "Insert SampleTemplate1")
-                            }
-                        }
-                        Br(this)
-                        Br(this)
-                    }
+            //Calling Java from Kotlin
+            ComponentUtil.buildAppHeading(this);
+
+            Div(this, Id("mainDivId")).run {
+                NoTag(this, "The content of the document...... ")
+                Button(this, OnClick(this@IndexPageLayout)).run {
+                    NoTag(this, "Insert SampleTemplate1")
                 }
-
+                Br(this)
+                Br(this)
             }
         }
 
