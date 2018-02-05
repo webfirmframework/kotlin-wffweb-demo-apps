@@ -43,7 +43,7 @@ class SampleTemplate2(private val documentModel: DocumentModel) : Div(null), Ser
 
                             val pwd = bm.getValue("pwd") as String
 
-                            print("email: " + email + ", pwd: " + pwd)
+                            println("email: " + email + ", pwd: " + pwd)
 
                             val result = WffBMObject();
                             result.put("msg", BMValueType.STRING,
