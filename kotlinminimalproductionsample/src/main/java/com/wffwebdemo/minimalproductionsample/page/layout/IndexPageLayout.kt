@@ -31,8 +31,8 @@ class IndexPageLayout(private val documentModel: DocumentModel) : Html(null), Se
 
     private fun develop() {
 
-        Head(this).run {
-            TitleTag(this).run {
+        Head(this).apply {
+            TitleTag(this).apply {
                 NoTag(this, "Bootstrap Example")
             }
             Meta(this,
@@ -49,14 +49,14 @@ class IndexPageLayout(private val documentModel: DocumentModel) : Html(null), Se
                     Src("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"))
         }
 
-        Body(this).run {
+        Body(this).apply {
 
             //Calling Java from Kotlin
             ComponentUtil.buildAppHeading(this);
 
-            Div(this, Id("mainDivId")).run {
+            Div(this, Id("mainDivId")).apply {
                 NoTag(this, "The content of the document...... ")
-                Button(this, OnClick(this@IndexPageLayout)).run {
+                Button(this, OnClick(this@IndexPageLayout)).apply {
                     NoTag(this, "Insert SampleTemplate1")
                 }
                 Br(this)

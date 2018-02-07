@@ -10,7 +10,7 @@ class AppHeading : Div {
 
     constructor() : super(null, Style("background: green")) {
 
-        H1(this).run {
+        H1(this).apply {
             NoTag(this, "Kotlin + Java wffweb sample project")
         }
 

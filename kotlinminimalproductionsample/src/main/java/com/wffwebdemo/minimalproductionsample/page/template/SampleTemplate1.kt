@@ -22,7 +22,7 @@ class SampleTemplate1(private val documentModel: DocumentModel) : Div(null), Ser
 
         Br(this)
 
-        Button(this, OnClick(this@SampleTemplate1)).run {
+        Button(this, OnClick(this@SampleTemplate1)).apply {
             NoTag(this, "Click Me to change to SampleTemplate2")
         }
         Br(this)

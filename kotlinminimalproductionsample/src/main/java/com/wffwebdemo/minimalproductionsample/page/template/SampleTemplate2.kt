@@ -32,7 +32,7 @@ class SampleTemplate2(private val documentModel: DocumentModel) : Div(null), Ser
         val classAttribute10 = ClassAttribute("form-group")
         val classAttribute13 = ClassAttribute("form-control")
 
-        H2(this).run {
+        H2(this).apply {
             NoTag(this, "Vertical (basic) form")
         }
         Form(this,
@@ -51,12 +51,12 @@ class SampleTemplate2(private val documentModel: DocumentModel) : Div(null), Ser
 
                             result;
                         }, "return {email: email.value, pwd: pwd.value}",
-                        "if (jsObject && jsObject.msg) {alert(jsObject.msg);}")).run {
+                        "if (jsObject && jsObject.msg) {alert(jsObject.msg);}")).apply {
 
             Div(this,
-                    classAttribute10).run {
+                    classAttribute10).apply {
                 Label(this,
-                        For("email")).run {
+                        For("email")).apply {
                     NoTag(this, "Email:")
                 }
                 Input(this,
@@ -68,9 +68,9 @@ class SampleTemplate2(private val documentModel: DocumentModel) : Div(null), Ser
                         AutoComplete(AutoComplete.EMAIL))
             }
             Div(this,
-                    classAttribute10).run {
+                    classAttribute10).apply {
                 Label(this,
-                        For("pwd")).run {
+                        For("pwd")).apply {
                     NoTag(this, "Password:")
                 }
                 Input(this,
@@ -81,8 +81,8 @@ class SampleTemplate2(private val documentModel: DocumentModel) : Div(null), Ser
                         Name("pwd"))
             }
             Div(this,
-                    ClassAttribute("checkbox")).run {
-                Label(this).run {
+                    ClassAttribute("checkbox")).apply {
+                Label(this).apply {
                     Input(this,
                             Type("checkbox"),
                             Name("remember"))
@@ -91,7 +91,7 @@ class SampleTemplate2(private val documentModel: DocumentModel) : Div(null), Ser
             }
             Button(this,
                     Type("submit"),
-                    ClassAttribute("btn btn-default")).run {
+                    ClassAttribute("btn btn-default")).apply {
                 NoTag(this, "Submit")
             }
         }
