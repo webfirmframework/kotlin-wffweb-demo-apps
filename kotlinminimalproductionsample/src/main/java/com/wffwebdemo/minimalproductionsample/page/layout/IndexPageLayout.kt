@@ -26,6 +26,7 @@ class IndexPageLayout(private val documentModel: DocumentModel) : Html(null), Se
 
     init {
         super.setSharedData(documentModel)
+        super.setPrependDocType(true)
         develop()
     }
 
