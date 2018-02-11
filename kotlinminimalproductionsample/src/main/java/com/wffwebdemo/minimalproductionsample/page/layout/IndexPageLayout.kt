@@ -25,8 +25,8 @@ import java.util.logging.Logger
 class IndexPageLayout(private val documentModel: DocumentModel) : Html(null), ServerAsyncMethod {
 
     init {
-        super.setSharedData(documentModel)
         super.setPrependDocType(true)
+        super.setSharedData(documentModel)
         develop()
     }
 
