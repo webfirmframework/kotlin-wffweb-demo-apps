@@ -3,11 +3,15 @@ package com.wffwebdemo.minimalproductionsample.server.ws
 import com.webfirmframework.wffweb.PushFailedException
 import com.webfirmframework.wffweb.server.page.BrowserPage
 import com.webfirmframework.wffweb.server.page.BrowserPageContext
+import com.webfirmframework.wffweb.server.page.PayloadProcessor
 import com.webfirmframework.wffweb.server.page.action.BrowserPageAction
+import com.webfirmframework.wffweb.util.ByteBufferUtil
 import com.wffwebdemo.minimalproductionsample.server.constants.ServerConstants
 import com.wffwebdemo.minimalproductionsample.server.constants.ServerConstants.INDEX_PAGE_WS_URI
 import com.wffwebdemo.minimalproductionsample.server.util.HeartBeatUtil
 import java.io.IOException
+import java.nio.ByteBuffer
+import java.util.logging.Level
 import java.util.logging.Logger
 import javax.servlet.ServletRequestEvent
 import javax.servlet.ServletRequestListener
@@ -34,6 +38,8 @@ class WSServerForIndexPage : Configurator(), ServletRequestListener {
     private var httpSession: HttpSession? = null
 
     private var lastHeartbeatTime: Long = 0
+
+    private var payloadProcessor: PayloadProcessor? = null
 
     override fun modifyHandshake(config: ServerEndpointConfig?,
                                  request: HandshakeRequest?, response: HandshakeResponse?) {
@@ -116,31 +122,54 @@ class WSServerForIndexPage : Configurator(), ServletRequestListener {
 
         }
 
-        browserPage!!.addWebSocketPushListener(session.id
-        ) { data ->
-            try {
-                session.basicRemote.sendBinary(data)
-            } catch (e: Throwable) {
-                throw PushFailedException(e.message, e)
+        // Internally it may contain a volatile variable
+        // so it's better to declare a dedicated variable before
+        // addWebSocketPushListener.
+        // If the maxBinaryMessageBufferSize is changed dynamically
+        // then call getMaxBinaryMessageBufferSize method directly in
+        // sliceIfRequired method as second argument.
+        val maxBinaryMessageBufferSize = session
+                .maxBinaryMessageBufferSize
+
+        payloadProcessor = browserPage!!.payloadProcessor
+
+        browserPage!!.addWebSocketPushListener(session.id) { data ->
+
+            ByteBufferUtil.sliceIfRequired(data, maxBinaryMessageBufferSize
+            ) { part, last ->
+
+                try {
+                    session.basicRemote.sendBinary(part, last)
+                } catch (e: IOException) {
+                    LOGGER.log(Level.SEVERE,
+                            "IOException while session.getBasicRemote().sendBinary(part, last)",
+                            e)
+                    try {
+                        session.close()
+                    } catch (e1: IOException) {
+                        LOGGER.log(Level.SEVERE,
+                                "IOException while session.close()",
+                                e1)
+                    }
+
+                    throw PushFailedException(e.message, e)
+                }
+
+                !last
             }
         }
 
     }
 
-    /**
-     * When a user sends a message to the server, this method will intercept the
-     * message and allow us to react to it. For now the message is read as a
-     * String.
-     */
     @OnMessage
-    fun onMessage(message: ByteArray, session: Session) {
+    fun onMessage(message: ByteBuffer, last: Boolean, session: Session) {
 
-        browserPage!!.webSocketMessaged(message)
+        payloadProcessor!!.webSocketMessaged(message, last)
 
-        if (message.size == 0) {
+        if (last && message.capacity() == 0) {
             LOGGER.info("client ping message.length == 0")
             if (httpSession != null && HTTP_SESSION_HEARTBEAT_INVTERVAL < System
-                    .currentTimeMillis() - lastHeartbeatTime) {
+                            .currentTimeMillis() - lastHeartbeatTime) {
                 LOGGER.info("going to start httpsession hearbeat")
                 HeartBeatUtil.ping(httpSession!!.id)
                 lastHeartbeatTime = System.currentTimeMillis()
@@ -192,6 +221,9 @@ class WSServerForIndexPage : Configurator(), ServletRequestListener {
         val instanceId = wffInstanceIds?.get(0)
         BrowserPageContext.INSTANCE.webSocketClosed(instanceId,
                 session.id)
+
+        payloadProcessor = null
+        browserPage!!.removePayloadProcessor()
     }
 
     @OnError
