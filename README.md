@@ -6,6 +6,6 @@
 Leverage the power of Kotlin & Java to build realtime web apps. The following are the demo projects in this repository.
 
 ##### kotlinminimalproductionsample is a Kotlin + Java project
-It contains both Kotlin code and Java code. It's based on Kotlin version 1.2.21
+It contains both Kotlin code and Java code. Each branch contains code for different Java versions.
 
 
