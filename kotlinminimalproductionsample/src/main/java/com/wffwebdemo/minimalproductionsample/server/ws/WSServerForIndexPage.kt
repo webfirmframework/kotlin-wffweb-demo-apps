@@ -52,17 +52,16 @@ class WSServerForIndexPage : Configurator(), ServletRequestListener {
             LOGGER.info("httpSession == null after modifyHandshake")
             httpSession = request.httpSession as HttpSession
         }
-
-        if (httpSession == null) {
-            LOGGER.info("httpSession == null")
-            return
-        }
+		
+// could be unnecessary code
+//        if (httpSession == null) {
+//            LOGGER.info("httpSession == null")
+//            return
+//        }
 
         config!!.userProperties.put("httpSession", httpSession)
-
-        httpSession = request.httpSession as HttpSession
+        
         LOGGER.info("modifyHandshake " + httpSession.id)
-
     }
 
     /**
