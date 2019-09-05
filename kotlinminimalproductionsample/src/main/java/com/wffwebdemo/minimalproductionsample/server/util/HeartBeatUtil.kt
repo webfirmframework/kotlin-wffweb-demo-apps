@@ -10,7 +10,7 @@ import java.util.logging.Logger
 object HeartBeatUtil {
 
     private val LOGGER = Logger
-            .getLogger(HeartBeatUtil::class.java!!.getName())
+            .getLogger(HeartBeatUtil::class.java.getName())
 
     fun ping(sessionId: String) {
 

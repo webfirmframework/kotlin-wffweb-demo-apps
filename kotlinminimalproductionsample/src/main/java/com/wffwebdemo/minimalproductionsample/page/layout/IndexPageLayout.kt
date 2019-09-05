@@ -76,7 +76,7 @@ class IndexPageLayout(private val documentModel: DocumentModel) : Html(null), Se
         if (mainDiv != null) {
             LOGGER.info("SampleTemplate1 appended")
             mainDiv.appendChild(SampleTemplate1(documentModel))
-            val titleTag = tagRepository.findOneTagAssignableToTag<TitleTag>(TitleTag::class.java!!)
+            val titleTag = tagRepository.findOneTagAssignableToTag<TitleTag>(TitleTag::class.java)
             titleTag.addInnerHtml(NoTag(null, "Bootstrap Example | SampleTemplate1"))
         }
 
@@ -85,7 +85,7 @@ class IndexPageLayout(private val documentModel: DocumentModel) : Html(null), Se
 
     companion object {
 
-        private val LOGGER = Logger.getLogger(IndexPageLayout::class.java!!.getName())
+        private val LOGGER = Logger.getLogger(IndexPageLayout::class.java.getName())
     }
 
 }

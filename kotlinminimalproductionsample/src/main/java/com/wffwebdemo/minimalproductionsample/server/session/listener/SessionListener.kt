@@ -34,7 +34,7 @@ class SessionListener : HttpSessionListener {
     companion object {
 
         private val LOGGER = Logger
-                .getLogger(SessionListener::class.java!!.getName())
+                .getLogger(SessionListener::class.java.getName())
     }
 
 }

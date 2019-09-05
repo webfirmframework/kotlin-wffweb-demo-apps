@@ -59,7 +59,7 @@ class IndexPage(val documentModel: DocumentModel) : BrowserPage() {
         private val serialVersionUID = 1L
 
         private val LOGGER = Logger
-                .getLogger(IndexPage::class.java!!.getName())
+                .getLogger(IndexPage::class.java.getName())
 
         // this is a standard interval
         val HEARTBEAT_TIME_MILLISECONDS = 25000

@@ -251,7 +251,7 @@ class WSServerForIndexPage : Configurator(), ServletRequestListener {
     companion object {
 
         private val LOGGER = Logger
-                .getLogger(WSServerForIndexPage::class.java!!.getName())
+                .getLogger(WSServerForIndexPage::class.java.getName())
 
         private val HTTP_SESSION_HEARTBEAT_INVTERVAL = (ServerConstants.SESSION_TIMEOUT_MILLISECONDS - 1000 * 60 * 2).toLong()
     }
