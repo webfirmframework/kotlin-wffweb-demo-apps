@@ -130,9 +130,13 @@ class WSServerForIndexPage : Configurator(), ServletRequestListener {
         val maxBinaryMessageBufferSize = session
                 .maxBinaryMessageBufferSize
 
-        payloadProcessor = browserPage!!.payloadProcessor
 
-        browserPage!!.addWebSocketPushListener(session.id) { data ->
+		// NB: do not use browserPage.payloadProcessor it has bug
+		// payloadProcessor = browserPage!!.payloadProcessor
+		payloadProcessor = PayloadProcessor(browserPage);
+
+
+		browserPage!!.addWebSocketPushListener(session.id) { data ->
 
             ByteBufferUtil.sliceIfRequired(data, maxBinaryMessageBufferSize
             ) { part, last ->
