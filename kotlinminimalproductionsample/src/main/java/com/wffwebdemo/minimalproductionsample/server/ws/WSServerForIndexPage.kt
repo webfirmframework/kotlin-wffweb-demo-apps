@@ -226,7 +226,6 @@ class WSServerForIndexPage : Configurator(), ServletRequestListener {
                 session.id)
 
         payloadProcessor = null
-        browserPage!!.removePayloadProcessor()
     }
 
     @OnError
