@@ -25,7 +25,7 @@ class StatefulInput(base: AbstractHtml?, vararg attributes: AbstractAttribute) :
         valueAttr = if (valueAttr != null) valueAttr else Value("")
 
         val onChange = OnChange("return true;",
-                { bm, ev ->
+                { bm, _ ->
                     val value = bm.getValue("attrValue") as String
                     //updateClient must be false to avoid synching the changes to the client browser page
                     valueAttr!!.setValue(false, value)

@@ -40,7 +40,7 @@ class HeartBeatServlet : HttpServlet() {
 
         private val serialVersionUID = 1L
 
-        private val LOGGER = Logger.getLogger(HeartBeatServlet::class.java!!.getName())
+        private val LOGGER = Logger.getLogger(HeartBeatServlet::class.java.getName())
     }
 
 }

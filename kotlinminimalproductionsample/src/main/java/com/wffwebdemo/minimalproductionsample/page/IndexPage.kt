@@ -56,15 +56,13 @@ class IndexPage(val documentModel: DocumentModel) : BrowserPage() {
 
     companion object {
 
-        private val serialVersionUID = 1L
-
         private val LOGGER = Logger
-                .getLogger(IndexPage::class.java!!.getName())
+                .getLogger(IndexPage::class.java.getName())
 
         // this is a standard interval
-        val HEARTBEAT_TIME_MILLISECONDS = 25000
+        const val HEARTBEAT_TIME_MILLISECONDS = 25000
 
-        private val WS_RECONNECT_TIME = 1000
+        private const val WS_RECONNECT_TIME = 1000
     }
 
 }

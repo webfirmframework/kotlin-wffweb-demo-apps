@@ -37,7 +37,7 @@ class SampleTemplate2(private val documentModel: DocumentModel) : Div(null), Ser
         }
         Form(this,
                 OnSubmit("event.preventDefault(); return true;",
-                        { bm, ev ->
+                        { bm, _ ->
 
                             val email = bm.getValue("email") as String
 

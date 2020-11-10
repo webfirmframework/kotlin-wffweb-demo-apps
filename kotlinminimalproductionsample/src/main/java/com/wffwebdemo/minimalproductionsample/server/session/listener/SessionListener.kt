@@ -23,7 +23,8 @@ class SessionListener : HttpSessionListener {
 
         if (attrValue != null) {
             val indexPageInstanceId = attrValue.toString()
-            val indexPage = BrowserPageContext.INSTANCE
+            //val indexPage = 
+            BrowserPageContext.INSTANCE
                     .getBrowserPage(indexPageInstanceId) as IndexPage
 
         }
@@ -34,7 +35,7 @@ class SessionListener : HttpSessionListener {
     companion object {
 
         private val LOGGER = Logger
-                .getLogger(SessionListener::class.java!!.getName())
+                .getLogger(SessionListener::class.java.getName())
     }
 
 }

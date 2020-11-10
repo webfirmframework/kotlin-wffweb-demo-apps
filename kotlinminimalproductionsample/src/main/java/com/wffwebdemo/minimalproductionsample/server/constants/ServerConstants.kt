@@ -2,7 +2,7 @@ package com.wffwebdemo.minimalproductionsample.server.constants
 
 object ServerConstants {
 
-    val DOMAIN_URL: String
+    var DOMAIN_URL: String
 
     val DOMAIN_WS_URL: String
 
@@ -10,9 +10,9 @@ object ServerConstants {
 
     val SESSION_TIMEOUT: Int
 
-    val SESSION_TIMEOUT_SECONDS: Int
+    var SESSION_TIMEOUT_SECONDS: Int
 
-    val SESSION_TIMEOUT_MILLISECONDS: Int
+    var SESSION_TIMEOUT_MILLISECONDS: Int
 
     private val LOCAL_MACHINE_IP = "localhost"
 
@@ -23,7 +23,7 @@ object ServerConstants {
     /**
      * must be null initially
      */
-    var CONTEXT_PATH: String? = null
+    var CONTEXT_PATH: String?  = null
 
     init {
 
